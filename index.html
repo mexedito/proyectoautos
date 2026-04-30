@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Autos</title>
+<style>
+:root{
+  --accent:#e63946;--accent-dark:#c1121f;
+  --bg:#fff;--bg2:#f7f7f7;--primary:#111;
+  --text:#1a1a1a;--muted:#777;--border:#e5e5e5;
+  --radius:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+button{cursor:pointer;font-family:inherit;}
+/* TOPBAR */
+.topbar{background:var(--primary);color:#aaa;font-size:.73rem;padding:6px 28px;display:flex;justify-content:space-between;align-items:center;letter-spacing:.3px;}
+.topbar span{display:flex;align-items:center;gap:6px;}
+.topbar a{color:#ccc;cursor:pointer;}
+.topbar a:hover{color:#fff;}
+/* NAV */
+nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 1px 6px #00000008;}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;flex-shrink:0;}
+.nav-logo-icon{width:38px;height:38px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1rem;letter-spacing:-1px;overflow:hidden;}
+.nav-logo-icon img{width:100%;height:100%;object-fit:cover;border-radius:6px;}
+.nav-logo-name{font-weight:900;font-size:.97rem;letter-spacing:.5px;line-height:1.1;}
+.nav-logo-sub{font-size:.6rem;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;}
+.nav-links{display:flex;gap:1px;}
+.nl{background:none;border:none;color:var(--muted);padding:7px 13px;border-radius:5px;font-size:.82rem;font-weight:600;letter-spacing:.2px;transition:.15s;}
+.nl:hover{color:var(--text);}
+.nl.active{color:var(--accent);}
+.nav-right{display:flex;gap:8px;align-items:center;}
+.btn-wa-nav{background:var(--accent);color:#fff;border:none;padding:9px 18px;border-radius:6px;font-weight:700;font-size:.8rem;transition:.15s;}
+.btn-wa-nav:hover{background:var(--accent-dark);}
+.btn-access{background:none;border:1px solid var(--border);color:var(--muted);padding:8px 15px;border-radius:6px;font-size:.77rem;font-weight:600;transition:.15s;}
+.btn-access:hover{border-color:var(--accent);color:var(--accent);}
+/* MOBILE MENU */
+.hamburger{display:none;background:none;border:none;flex-direction:column;gap:5px;padding:4px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.2s;}
+.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:400;flex-direction:column;padding:24px;}
+.mobile-menu.open{display:flex;}
+.mm-close{align-self:flex-end;background:none;border:none;font-size:1.4rem;color:var(--muted);margin-bottom:24px;}
+.mm-link{background:none;border:none;text-align:left;padding:16px 0;font-size:1.05rem;font-weight:700;border-bottom:1px solid var(--border);color:var(--text);}
+.mm-link:last-of-type{border:none;}
+.mm-wa{background:var(--accent);color:#fff;border:none;width:100%;padding:14px;border-radius:8px;font-weight:800;font-size:1rem;margin-top:24px;}
+/* PAGE */
+.page{display:none;}
+.page.active{display:block;}
+.container{max-width:1120px;margin:0 auto;padding:0 24px;}
+/* HERO */
+.hero{background:var(--primary);min-height:460px;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,#111 45%,#1c1208 100%);}
+.hero-content{position:relative;z-index:2;padding:64px 0;max-width:540px;}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:#ffffff12;border:1px solid #ffffff1a;color:#bbb;font-size:.7rem;font-weight:700;letter-spacing:1.5px;padding:5px 14px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;}
+.hero-pill em{color:var(--accent);font-style:normal;}
+.hero h1{font-size:2.5rem;font-weight:900;color:#fff;line-height:1.12;letter-spacing:-.5px;margin-bottom:14px;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero p{color:#999;font-size:.93rem;line-height:1.65;margin-bottom:28px;max-width:420px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-red{background:var(--accent);color:#fff;border:none;padding:12px 26px;border-radius:7px;font-weight:800;font-size:.86rem;letter-spacing:.3px;transition:.15s;}
+.btn-red:hover{background:var(--accent-dark);}
+.btn-ghost{background:none;border:1px solid #ffffff2a;color:#fff;padding:12px 26px;border-radius:7px;font-weight:700;font-size:.86rem;transition:.15s;}
+.btn-ghost:hover{border-color:#fff;background:#ffffff0d;}
+/* SEARCH BAR */
+.search-bar{background:#fff;border-bottom:1px solid var(--border);padding:18px 0;}
+.search-inner{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+.sf{display:flex;flex-direction:column;gap:4px;flex:1;min-width:130px;}
+.sf label{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+.sf select,.sf input[type=number]{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 11px;border-radius:6px;font-size:.83rem;outline:none;font-family:inherit;width:100%;}
+.sf select:focus,.sf input:focus{border-color:var(--accent);}
+.btn-srch{background:var(--accent);color:#fff;border:none;padding:9px 22px;border-radius:6px;font-weight:800;font-size:.83rem;height:38px;white-space:nowrap;transition:.15s;}
+.btn-srch:hover{background:var(--accent-dark);}
+/* SECTION */
+.section{padding:52px 0;}
+.section-alt{background:var(--bg2);}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:10px;}
+.sec-title{font-size:1.25rem;font-weight:900;letter-spacing:-.3px;}
+.sec-title em{color:var(--accent);font-style:normal;}
+.sec-lnk{background:none;border:none;color:var(--accent);font-size:.8rem;font-weight:700;}
+.sec-lnk:hover{text-decoration:underline;}
+/* CAROUSEL */
+.car-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;}
+.car-scroll::-webkit-scrollbar{height:3px;}
+.car-scroll::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+/* CAR CARD */
+.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+.car-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.2s;}
+.car-card:hover{box-shadow:0 6px 22px #00000012;transform:translateY(-2px);}
+.cc-img{position:relative;height:165px;background:var(--bg2);overflow:hidden;}
+.cc-img img{width:100%;height:100%;object-fit:cover;transition:.3s;}
+.car-card:hover .cc-img img{transform:scale(1.04);}
+.cc-no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;letter-spacing:.3px;}
+.cc-badge{position:absolute;top:10px;left:10px;font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:4px;letter-spacing:.5px;text-transform:uppercase;}
+.b-avail{background:#e8f5e9;color:#2e7d32;}
+.b-sold{background:#ffeaea;color:#c62828;}
+.b-dest{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:4px;letter-spacing:.5px;}
+.b-0km{position:absolute;bottom:10px;left:10px;background:#1565c0;color:#fff;font-size:.62rem;font-weight:800;padding:3px 9px;border-radius:4px;}
+.cc-body{padding:14px;}
+.cc-marca{font-size:.65rem;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+.cc-name{font-weight:800;font-size:.95rem;margin-bottom:9px;line-height:1.25;}
+.cc-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px;}
+.chip{font-size:.68rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:3px 7px;border-radius:4px;}
+.cc-price{font-weight:900;font-size:1.05rem;}
+.cc-price small{font-size:.68rem;color:var(--muted);font-weight:500;margin-left:3px;}
+/* FIN BANNER */
+.fin-banner{background:var(--primary);color:#fff;border-radius:var(--radius);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.fin-banner h3{font-size:1.35rem;font-weight:900;margin-bottom:6px;}
+.fin-banner p{color:#999;font-size:.87rem;line-height:1.6;max-width:460px;}
+.bancos-list{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.banco-chip{background:#ffffff10;border:1px solid #ffffff18;color:#ccc;font-size:.72rem;font-weight:700;padding:5px 13px;border-radius:20px;}
+/* CATLOGO FILTROS LATERALES */
+.catalogo-layout{display:grid;grid-template-columns:230px 1fr;gap:28px;align-items:start;}
+@media(max-width:768px){.catalogo-layout{grid-template-columns:1fr;}}
+.filtros-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:sticky;top:80px;}
+.fp-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px;}
+.fp-section{margin-bottom:20px;}
+.fp-section-label{font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:.3px;}
+.fp-pills{display:flex;flex-direction:column;gap:4px;}
+.fp-pill{background:none;border:none;text-align:left;padding:6px 10px;border-radius:5px;font-size:.8rem;color:var(--muted);transition:.15s;cursor:pointer;}
+.fp-pill:hover{color:var(--text);background:#fff;}
+.fp-pill.active{background:var(--accent);color:#fff;font-weight:700;}
+.fp-range{display:flex;gap:8px;}
+.fp-range input{flex:1;background:#fff;border:1px solid var(--border);color:var(--text);padding:7px 9px;border-radius:5px;font-size:.78rem;outline:none;font-family:inherit;width:100%;}
+.fp-range input:focus{border-color:var(--accent);}
+.fp-select{width:100%;background:#fff;border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:5px;font-size:.8rem;outline:none;font-family:inherit;}
+.fp-select:focus{border-color:var(--accent);}
+.btn-aplicar{background:var(--accent);color:#fff;border:none;width:100%;padding:10px;border-radius:6px;font-weight:800;font-size:.8rem;margin-top:4px;transition:.15s;}
+.btn-aplicar:hover{background:var(--accent-dark);}
+.btn-limpiar{background:none;border:none;color:var(--muted);font-size:.75rem;width:100%;padding:6px;margin-top:4px;text-decoration:underline;}
+/* CATALOGO HEADER */
+.cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.cat-count-lbl{font-size:.82rem;color:var(--muted);}
+.sort-select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:7px 11px;border-radius:6px;font-size:.8rem;outline:none;font-family:inherit;}
+/* DETALLE */
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:.8rem;background:none;border:none;padding:0;margin-bottom:22px;transition:.15s;}
+.back-btn:hover{color:var(--accent);}
+.detail-grid{display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start;}
+@media(max-width:760px){.detail-grid{grid-template-columns:1fr;}}
+.gal-main{width:100%;aspect-ratio:16/10;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg2);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.82rem;}
+.gal-main img{width:100%;height:100%;object-fit:cover;}
+.gal-thumbs{display:flex;gap:8px;margin-top:10px;}
+.g-thumb{width:70px;height:50px;border-radius:5px;border:2px solid var(--border);cursor:pointer;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;transition:.15s;}
+.g-thumb img{width:100%;height:100%;object-fit:cover;}
+.g-thumb.active,.g-thumb:hover{border-color:var(--accent);}
+.detail-sticky{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;position:sticky;top:80px;}
+.d-marca{font-size:.65rem;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.d-name{font-size:1.55rem;font-weight:900;letter-spacing:-.3px;margin-bottom:4px;line-height:1.15;}
+.d-price{font-size:1.4rem;font-weight:900;margin-bottom:18px;}
+.d-divider{height:1px;background:var(--border);margin:14px 0;}
+.spec-table{width:100%;border-collapse:collapse;}
+.spec-table tr{border-bottom:1px solid var(--border);}
+.spec-table tr:last-child{border:none;}
+.spec-table td{padding:8px 0;font-size:.84rem;}
+.spec-table td:first-child{color:var(--muted);}
+.spec-table td:last-child{font-weight:700;text-align:right;}
+.wa-big{background:#25D366;color:#fff;border:none;width:100%;padding:13px;border-radius:7px;font-weight:800;font-size:.88rem;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px;transition:.15s;}
+.wa-big:hover{background:#1ebe58;}
+.sold-notice{background:#ffeaea;border:1px solid #ffc9c9;border-radius:7px;padding:13px;text-align:center;color:#c62828;font-weight:700;font-size:.83rem;margin-top:16px;}
+.d-desc-sec{margin-top:28px;}
+.d-desc-sec h4{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px;}
+.d-desc-sec p{color:var(--muted);font-size:.86rem;line-height:1.7;}
+/* ENTREGAS */
+.entregas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+.ent-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.ent-img{height:165px;background:var(--bg2);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;}
+.ent-img img{width:100%;height:100%;object-fit:cover;}
+.ent-body{padding:13px;}
+.ent-name{font-weight:800;font-size:.86rem;margin-bottom:2px;}
+.ent-date{font-size:.7rem;color:var(--muted);margin-bottom:7px;letter-spacing:.3px;}
+.ent-review{font-size:.8rem;color:#555;line-height:1.55;font-style:italic;}
+/* VENDE TU AUTO */
+.vende-hero{background:var(--primary);color:#fff;padding:52px 0;}
+.vende-hero h2{font-size:2rem;font-weight:900;margin-bottom:10px;}
+.vende-hero p{color:#999;max-width:520px;line-height:1.65;font-size:.92rem;margin-bottom:28px;}
+.pasos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px;}
+.paso-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.paso-num{font-size:1.8rem;font-weight:900;color:var(--accent);margin-bottom:8px;}
+.paso-title{font-weight:800;margin-bottom:6px;}
+.paso-desc{color:var(--muted);font-size:.83rem;line-height:1.6;}
+.vende-form{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:600px;}
+.vende-form h3{font-weight:900;margin-bottom:6px;}
+.vende-form p{color:var(--muted);font-size:.83rem;margin-bottom:22px;}
+/* FINANCIACION */
+.fin-pasos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:36px;}
+.fin-paso{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;}
+.fin-paso-n{font-size:1.6rem;font-weight:900;color:var(--accent);margin-bottom:6px;}
+.fin-paso-t{font-weight:800;margin-bottom:4px;font-size:.9rem;}
+.fin-paso-d{color:var(--muted);font-size:.8rem;line-height:1.55;}
+.bancos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:32px;}
+.banco-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;font-weight:800;font-size:.88rem;}
+/* AGENCIA */
+.ag-cover{height:280px;background:var(--primary);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;color:#444;font-size:.83rem;}
+.ag-cover img{width:100%;height:100%;object-fit:cover;}
+.ag-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0;}
+.ag-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center;}
+.ag-stat-n{font-size:1.9rem;font-weight:900;color:var(--accent);}
+.ag-stat-l{color:var(--muted);font-size:.72rem;margin-top:3px;letter-spacing:.5px;text-transform:uppercase;}
+.ag-fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px;}
+.ag-foto{height:150px;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;}
+.ag-foto img{width:100%;height:100%;object-fit:cover;}
+/* LOGIN */
+.login-box{max-width:390px;margin:52px auto;background:#fff;border:1px solid var(--border);border-radius:12px;padding:36px;box-shadow:0 4px 20px #0000000a;}
+.login-box h2{font-size:1.2rem;font-weight:900;margin-bottom:4px;}
+.login-sub{color:var(--muted);font-size:.8rem;margin-bottom:26px;}
+.hint{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px 13px;margin-bottom:18px;font-size:.76rem;color:var(--muted);}
+.hint strong{color:var(--accent);}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.field label{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+.field input,.field select,.field textarea{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:6px;font-size:.86rem;outline:none;font-family:inherit;width:100%;transition:.15s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);}
+.field textarea{resize:vertical;min-height:76px;}
+.field-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.btn-submit{background:var(--accent);color:#fff;border:none;width:100%;padding:12px;border-radius:7px;font-weight:800;font-size:.86rem;letter-spacing:.3px;transition:.15s;margin-top:4px;}
+.btn-submit:hover{background:var(--accent-dark);}
+.err-msg{color:#c62828;font-size:.77rem;margin-top:8px;display:none;}
+/* ADMIN */
+.admin-wrap{max-width:1000px;margin:0 auto;padding:32px 24px;}
+.admin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px;}
+.admin-title{font-size:.92rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;}
+.stats-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+@media(max-width:560px){.stats-4{grid-template-columns:1fr 1fr;}}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:17px 15px;}
+.stat-n{font-size:1.7rem;font-weight:900;}
+.stat-l{color:var(--muted);font-size:.68rem;margin-top:2px;letter-spacing:.5px;text-transform:uppercase;}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:16px;}
+.panel-lbl{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:16px;}
+.stock-row{display:flex;align-items:center;gap:13px;padding:10px 0;border-bottom:1px solid var(--border);}
+.stock-row:last-child{border:none;}
+.s-thumb{width:60px;height:43px;border-radius:5px;border:1px solid var(--border);overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--muted);flex-shrink:0;}
+.s-thumb img{width:100%;height:100%;object-fit:cover;}
+.s-info{flex:1;min-width:0;}
+.s-info strong{display:block;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-info small{color:var(--muted);font-size:.72rem;}
+.s-acts{display:flex;gap:6px;flex-shrink:0;}
+.bx{padding:5px 11px;border-radius:5px;font-weight:700;font-size:.71rem;border:none;transition:.15s;cursor:pointer;}
+.bx-r{background:#ffeaea;color:#c62828;}
+.bx-r:hover{background:#c62828;color:#fff;}
+.bx-g{background:#e8f5e9;color:#2e7d32;}
+.bx-g:hover{background:#2e7d32;color:#fff;}
+.bx-o{background:var(--bg2);color:var(--muted);border:1px solid var(--border);}
+.bx-o:hover{border-color:var(--accent);color:var(--accent);}
+/* PHOTO DROP */
+.drop{border:2px dashed var(--border);border-radius:7px;padding:20px;text-align:center;cursor:pointer;transition:.15s;margin-bottom:9px;}
+.drop:hover{border-color:var(--accent);background:#fff5f5;}
+.drop p{color:var(--muted);font-size:.75rem;margin-top:3px;}
+.drop strong{color:var(--accent);font-size:.8rem;}
+.prev-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.prev-item{position:relative;width:74px;height:54px;}
+.prev-item img{width:100%;height:100%;object-fit:cover;border-radius:5px;border:1px solid var(--border);}
+.prev-item button{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;background:#c62828;color:#fff;border:none;font-size:.58rem;display:flex;align-items:center;justify-content:center;}
+/* USER PILL */
+.user-pill{display:flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--border);padding:7px 13px;border-radius:6px;font-size:.76rem;}
+.role-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.role-dot.green{background:#2e7d32;}
+/* FOOTER */
+footer{background:var(--primary);color:#666;padding:30px;text-align:center;font-size:.76rem;}
+footer strong{color:#fff;}
+/* TOAST */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--primary);color:#fff;border:1px solid #333;padding:10px 22px;border-radius:7px;font-size:.8rem;font-weight:600;z-index:999;display:none;opacity:0;transition:.25s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);display:block;}
+@media(max-width:640px){
+  .hero h1{font-size:1.8rem;}
+  .nav-links,.nav-right .btn-wa-nav{display:none;}
+  .hamburger{display:flex;}
+  .container{padding:0 16px;}
+  .fin-banner{padding:24px;}
+  .catalogo-layout{grid-template-columns:1fr;}
+  .filtros-panel{position:static;}
+  .ag-stats{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 <span id="tb-ciudad">Río Cuarto, Córdoba</span></span>
+  <a onclick="contactoWA('general')">💬 Contactanos por WhatsApp</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <div class="nav-logo-icon" id="nav-icon">FA</div>
+      <div>
+        <div class="nav-logo-name" id="nav-name">FRANCO AUTOS</div>
+        <div class="nav-logo-sub">Concesionaria Oficial</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button class="nl active" onclick="showPage('home')">Inicio</button>
+      <button class="nl" onclick="showPage('catalogo')">Catálogo</button>
+      <button class="nl" onclick="showPage('financiacion')">Financiación</button>
+      <button class="nl" onclick="showPage('vende')">Vendé tu auto</button>
+      <button class="nl" onclick="showPage('entregas')">Entregas</button>
+      <button class="nl" onclick="showPage('agencia')">Nosotros</button>
+    </div>
+    <div class="nav-right">
+      <button class="btn-wa-nav" onclick="contactoWA('general')">WhatsApp</button>
+      <button class="btn-access" id="nav-access" onclick="showPage('login')">Acceso</button>
+      <button class="hamburger" onclick="openMobile()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mm-close" onclick="closeMobile()">✕</button>
+  <button class="mm-link" onclick="goMobile('home')">Inicio</button>
+  <button class="mm-link" onclick="goMobile('catalogo')">Catálogo</button>
+  <button class="mm-link" onclick="goMobile('financiacion')">Financiación</button>
+  <button class="mm-link" onclick="goMobile('vende')">Vendé tu auto</button>
+  <button class="mm-link" onclick="goMobile('entregas')">Entregas</button>
+  <button class="mm-link" onclick="goMobile('agencia')">Nosotros</button>
+  <button class="mm-wa" onclick="contactoWA('general')">💬 Contactar por WhatsApp</button>
+</div>
+
+<!-- ══ HOME ══ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container" style="position:relative;z-index:2;width:100%;">
+      <div class="hero-content">
+        <div class="hero-pill">✦ <em>Concesionaria</em> — Río Cuarto, Córdoba</div>
+        <h1>Tu próximo auto<br>te está <em>esperando.</em></h1>
+        <p>Stock de usados y 0km siempre actualizado. Atención directa, sin intermediarios y operaciones rápidas.</p>
+        <div class="hero-btns">
+          <button class="btn-red" onclick="showPage('catalogo')">Ver catálogo completo</button>
+          <button class="btn-ghost" onclick="contactoWA('general')">Consultar por WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="search-bar">
+    <div class="container">
+      <div class="search-inner">
+        <div class="sf"><label>Marca</label><select id="sb-marca" onchange="sbUpdateModelos()"><option value="">Todas las marcas</option></select></div>
+        <div class="sf"><label>Modelo</label><select id="sb-modelo"><option value="">Todos los modelos</option></select></div>
+        <div class="sf"><label>Año desde</label><select id="sb-anio"><option value="">Cualquier año</option></select></div>
+        <div class="sf"><label>Condición</label>
+          <select id="sb-cond"><option value="">Todas</option><option value="0km">0 km</option><option value="Usado">Usados</option></select>
+        </div>
+        <button class="btn-srch" onclick="buscar()">Buscar →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-title">Oportunidades <em>destacadas</em></div>
+        <button class="sec-lnk" onclick="showPage('catalogo')">Ver todos →</button>
+      </div>
+      <div class="car-scroll" id="home-dest"></div>
+
+      <br><br>
+      <div class="fin-banner">
+        <div>
+          <h3>Financiá tu próximo auto</h3>
+          <p>Trabajamos con los principales bancos del país. Consultá sin cargo y conocé tu cuota hoy mismo.</p>
+          <div class="bancos-list">
+            <span class="banco-chip">Galicia</span><span class="banco-chip">Bancor</span>
+            <span class="banco-chip">Santander</span><span class="banco-chip">Nación</span>
+            <span class="banco-chip">BBVA</span><span class="banco-chip">Supervielle</span>
+          </div>
+        </div>
+        <button class="btn-red" onclick="showPage('financiacion')">Ver financiación →</button>
+      </div>
+
+      <br><br>
+      <div class="sec-head">
+        <div class="sec-title">Últimas <em>entregas</em></div>
+        <button class="sec-lnk" onclick="showPage('entregas')">Ver todas →</button>
+      </div>
+      <div class="entregas-grid" id="home-ent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CATALOGO ══ -->
+<div id="page-catalogo" class="page">
+  <div class="section">
+    <div class="container">
+      <div class="catalogo-layout">
+        <!-- FILTROS PANEL -->
+        <div class="filtros-panel">
+          <div class="fp-title">Filtros</div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Condición</div>
+            <div class="fp-pills" id="fp-cond">
+              <button class="fp-pill active" onclick="fpSet('cond','Todos',this)">Todos</button>
+              <button class="fp-pill" onclick="fpSet('cond','0km',this)">0 km</button>
+              <button class="fp-pill" onclick="fpSet('cond','Usado',this)">Usados</button>
+            </div>
+          </div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Marca</div>
+            <div class="fp-pills" id="fp-marcas"></div>
+          </div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Transmisión</div>
+            <div class="fp-pills" id="fp-trans">
+              <button class="fp-pill active" onclick="fpSet('trans','Todos',this)">Todos</button>
+              <button class="fp-pill" onclick="fpSet('trans','Manual',this)">Manual</button>
+              <button class="fp-pill" onclick="fpSet('trans','Automático',this)">Automático</button>
+            </div>
+          </div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Combustible</div>
+            <select class="fp-select" id="fp-comb" onchange="applyFilters()">
+              <option value="">Todos</option>
+              <option>Nafta</option><option>Diesel</option>
+              <option>GNC</option><option>Nafta y GNC</option>
+              <option>Eléctrico</option><option>Híbrido</option>
+            </select>
+          </div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Año</div>
+            <div class="fp-range">
+              <input type="number" id="fp-anio-desde" placeholder="Desde" onchange="applyFilters()">
+              <input type="number" id="fp-anio-hasta" placeholder="Hasta" onchange="applyFilters()">
+            </div>
+          </div>
+
+          <div class="fp-section">
+            <div class="fp-section-label">Precio ARS</div>
+            <div class="fp-range">
+              <input type="number" id="fp-precio-desde" placeholder="Desde" onchange="applyFilters()">
+              <input type="number" id="fp-precio-hasta" placeholder="Hasta" onchange="applyFilters()">
+            </div>
+          </div>
+
+          <button class="btn-limpiar" onclick="limpiarFiltros()">Limpiar filtros</button>
+        </div>
+
+        <!-- GRID -->
+        <div>
+          <div class="cat-header">
+            <span class="cat-count-lbl" id="cat-count">0 vehículos</span>
+            <select class="sort-select" id="sort-sel" onchange="applyFilters()">
+              <option value="dest">Destacados primero</option>
+              <option value="nuevo">Más nuevos</option>
+              <option value="km">Menor km</option>
+              <option value="precio-asc">Menor precio</option>
+              <option value="precio-desc">Mayor precio</option>
+            </select>
+          </div>
+          <div class="cars-grid" id="catalogo-grid"></div>
+          <div id="no-results" style="display:none;text-align:center;padding:48px;color:var(--muted);">
+            <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
+            <div style="font-weight:700;margin-bottom:6px;">Sin resultados</div>
+            <div style="font-size:.83rem;">Probá con otros filtros</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETALLE ══ -->
+<div id="page-detalle" class="page">
+  <div class="section">
+    <div class="container">
+      <button class="back-btn" onclick="goBack()">← Volver al catálogo</button>
+      <div id="detalle-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FINANCIACION ══ -->
+<div id="page-financiacion" class="page">
+  <div class="section">
+    <div class="container" style="max-width:780px;">
+      <div class="sec-title" style="margin-bottom:8px;">Financiación <em>disponible</em></div>
+      <p style="color:var(--muted);margin-bottom:36px;font-size:.9rem;line-height:1.7;">Accedé a los mejores planes de financiación con los bancos más importantes del país. Sin vueltas, sin costos ocultos.</p>
+
+      <div class="sec-title" style="font-size:1rem;margin-bottom:18px;">¿Cómo funciona?</div>
+      <div class="fin-pasos">
+        <div class="fin-paso"><div class="fin-paso-n">01</div><div class="fin-paso-t">Elegís tu auto</div><div class="fin-paso-d">Explorá el catálogo y seleccioná el vehículo que más te gusta.</div></div>
+        <div class="fin-paso"><div class="fin-paso-n">02</div><div class="fin-paso-t">Consultás por WhatsApp</div><div class="fin-paso-d">Nos contactás y te asesoramos sin cargo sobre las opciones disponibles.</div></div>
+        <div class="fin-paso"><div class="fin-paso-n">03</div><div class="fin-paso-t">Elegís el banco</div><div class="fin-paso-d">Te presentamos las opciones de cuotas de cada banco para que elijas la mejor.</div></div>
+        <div class="fin-paso"><div class="fin-paso-n">04</div><div class="fin-paso-t">Retirás tu auto</div><div class="fin-paso-d">Una vez aprobado el crédito, coordinamos la entrega y te vas manejando.</div></div>
+      </div>
+
+      <div class="sec-title" style="font-size:1rem;margin:32px 0 18px;">Bancos disponibles</div>
+      <div class="bancos-grid">
+        ${['Galicia','Bancor','Santander','Banco Nación','BBVA','Supervielle'].map(b=>`<div class="banco-card">${b}</div>`).join('')}
+      </div>
+
+      <button class="btn-red" onclick="contactoWA('financiacion')">Consultar por WhatsApp →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VENDE TU AUTO ══ -->
+<div id="page-vende" class="page">
+  <div class="vende-hero">
+    <div class="container">
+      <h2>Vendé tu auto con nosotros</h2>
+      <p>Compramos tu auto o lo publicamos en consignación. Sin vueltas, sin esperas. Tasación gratuita.</p>
+      <button class="btn-red" onclick="contactoWA('venta')">Consultar tasación por WhatsApp →</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="sec-title" style="margin-bottom:24px;">¿Cómo funciona?</div>
+      <div class="pasos-grid">
+        <div class="paso-card"><div class="paso-num">01</div><div class="paso-title">Nos contactás</div><div class="paso-desc">Envianos los datos y fotos de tu auto por WhatsApp. Sin turno ni esperas.</div></div>
+        <div class="paso-card"><div class="paso-num">02</div><div class="paso-title">Tasación gratuita</div><div class="paso-desc">Evaluamos tu vehículo y te damos una oferta real en menos de 24 horas.</div></div>
+        <div class="paso-card"><div class="paso-num">03</div><div class="paso-title">Acordamos precio</div><div class="paso-desc">Si aceptás, gestionamos toda la documentación sin costo adicional.</div></div>
+        <div class="paso-card"><div class="paso-num">04</div><div class="paso-title">Cobrás rápido</div><div class="paso-desc">Pago en efectivo, transferencia o permuta por otro vehículo de nuestro stock.</div></div>
+      </div>
+      <br><br>
+      <div class="vende-form">
+        <h3>Dejá los datos de tu auto</h3>
+        <p>Te contactamos en menos de 24 horas con una tasación sin cargo.</p>
+        <div class="field-2">
+          <div class="field"><label>Marca</label><input id="v-marca" placeholder="Toyota, Ford..."></div>
+          <div class="field"><label>Modelo</label><input id="v-modelo" placeholder="Corolla..."></div>
+        </div>
+        <div class="field-2">
+          <div class="field"><label>Año</label><input id="v-anio" type="number" placeholder="2020"></div>
+          <div class="field"><label>Kilómetros</label><input id="v-km" placeholder="ej: 80000"></div>
+        </div>
+        <div class="field"><label>Tu nombre y teléfono</label><input id="v-contacto" placeholder="Ej: Juan — 3584 123456"></div>
+        <div class="field"><label>Observaciones (opcional)</label><textarea id="v-obs" placeholder="Estado del auto, extras..."></textarea></div>
+        <button class="btn-submit" onclick="enviarVenta()">Enviar consulta por WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ENTREGAS ══ -->
+<div id="page-entregas" class="page">
+  <div class="section">
+    <div class="container">
+      <div class="sec-head"><div class="sec-title">Galería de <em>entregas</em></div></div>
+      <p style="color:var(--muted);font-size:.83rem;margin-bottom:24px;">Cada entrega es una historia. Gracias a todos nuestros clientes por elegirnos.</p>
+      <div class="entregas-grid" id="entregas-full"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AGENCIA ══ -->
+<div id="page-agencia" class="page">
+  <div class="ag-cover" id="ag-cover"><span>Sin foto de portada</span></div>
+  <div class="section">
+    <div class="container">
+      <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:10px;" id="ag-nombre">Franco Autos — Río Cuarto</h2>
+      <p style="color:var(--muted);line-height:1.7;max-width:640px;font-size:.9rem;margin-bottom:0;">Somos una concesionaria con más de 10 años en el mercado cordobés. Trabajamos con transparencia, ofrecemos financiación con los principales bancos y asesoramiento personalizado en cada operación.</p>
+      <div class="ag-stats">
+        <div class="ag-stat"><div class="ag-stat-n">+10</div><div class="ag-stat-l">Años en el mercado</div></div>
+        <div class="ag-stat"><div class="ag-stat-n" id="ag-n">0</div><div class="ag-stat-l">Autos en stock</div></div>
+        <div class="ag-stat"><div class="ag-stat-n">+200</div><div class="ag-stat-l">Clientes satisfechos</div></div>
+      </div>
+      <div id="ag-redes" style="margin-bottom:28px;display:flex;gap:10px;flex-wrap:wrap;"></div>
+      <div class="sec-title" style="margin-bottom:16px;">Nuestras <em>instalaciones</em></div>
+      <div class="ag-fotos" id="ag-fotos-grid">
+        <div class="ag-foto">Showroom</div><div class="ag-foto">Exterior</div><div class="ag-foto">Equipo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div id="page-login" class="page">
+  <div class="login-box">
+    <h2>Acceso al sistema</h2>
+    <p class="login-sub">Ingresá con tu cuenta para continuar</p>
+
+    <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="tu@email.com"></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••••"></div>
+    <button class="btn-submit" onclick="doLogin()">Ingresar →</button>
+    <p class="err-msg" id="l-err">Email o contraseña incorrectos.</p>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <div><div class="admin-title">Panel de administración</div><div style="color:var(--muted);font-size:.72rem;margin-top:2px;">Gestión de stock, entregas y agencia</div></div>
+      <div style="display:flex;gap:9px;align-items:center;">
+        <div class="user-pill"><div class="role-dot"></div><span>Admin</span></div>
+        <button class="bx bx-r" onclick="logout()">Salir</button>
+      </div>
+    </div>
+    <div class="stats-4">
+      <div class="stat-box"><div class="stat-n" id="st-tot">0</div><div class="stat-l">Total</div></div>
+      <div class="stat-box"><div class="stat-n" id="st-dis" style="color:#2e7d32">0</div><div class="stat-l">Disponibles</div></div>
+      <div class="stat-box"><div class="stat-n" id="st-vnd" style="color:#c62828">0</div><div class="stat-l">Vendidos</div></div>
+      <div class="stat-box"><div class="stat-n" id="st-dst" style="color:var(--accent)">0</div><div class="stat-l">Destacados</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">➕ Cargar nuevo auto</div>
+      <div class="field-2">
+        <div class="field"><label>Marca</label><input id="f-marca" placeholder="Toyota, Ford..."></div>
+        <div class="field"><label>Modelo</label><input id="f-modelo" placeholder="Corolla, Ranger..."></div>
+      </div>
+      <div class="field-2">
+        <div class="field"><label>Año</label><input id="f-anio" type="number" placeholder="2023"></div>
+        <div class="field"><label>Precio ARS</label><input id="f-precio" placeholder="ej: 14800000"></div>
+      </div>
+      <div class="field-2">
+        <div class="field"><label>Kilómetros</label><input id="f-km" placeholder="ej: 45000"></div>
+        <div class="field"><label>Condición</label>
+          <select id="f-cond"><option value="Usado">Usado</option><option value="0km">0 km</option></select>
+        </div>
+      </div>
+      <div class="field-2">
+        <div class="field"><label>Combustible</label>
+          <select id="f-comb"><option>Nafta</option><option>Diesel</option><option>GNC</option><option>Nafta y GNC</option><option>Eléctrico</option><option>Híbrido</option></select>
+        </div>
+        <div class="field"><label>Transmisión</label>
+          <select id="f-trans"><option>Manual</option><option>Automático</option></select>
+        </div>
+      </div>
+      <div class="field-2">
+        <div class="field"><label>Destacado en inicio</label>
+          <select id="f-dest"><option value="0">No</option><option value="1">Sí</option></select>
+        </div>
+        <div class="field"><label>URL Video (YouTube)</label><input id="f-video" placeholder="https://..."></div>
+      </div>
+      <div class="field"><label>Descripción</label><textarea id="f-desc" placeholder="Estado, equipamiento, observaciones..."></textarea></div>
+      <div class="field">
+        <label>Fotos del vehículo (hasta 3)</label>
+        <div class="drop" onclick="document.getElementById('inp-fotos').click()">
+          <strong>+ Seleccionar fotos</strong>
+          <p>JPG o PNG · Podés elegir hasta 6 imágenes</p>
+          <input type="file" id="inp-fotos" accept="image/*" multiple style="display:none" onchange="prevFotos(this)">
+        </div>
+        <div class="prev-wrap" id="prev-fotos"></div>
+      </div>
+      <button class="btn-submit" onclick="guardarAuto()">Guardar auto →</button>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">📋 Stock actual</div>
+      <div id="admin-stock"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">🎉 Registrar entrega</div>
+      <div class="field-2">
+        <div class="field"><label>Nombre del cliente</label><input id="e-nombre" placeholder="Ej: Martín G."></div>
+        <div class="field"><label>Fecha</label><input id="e-fecha" placeholder="Ej: Abril 2025"></div>
+      </div>
+      <div class="field"><label>Reseña</label><textarea id="e-review" placeholder="Palabras del cliente..."></textarea></div>
+      <div class="field">
+        <label>Foto de la entrega</label>
+        <div class="drop" onclick="document.getElementById('inp-entrega').click()">
+          <strong>+ Subir foto</strong><p>Foto del cliente con el auto</p>
+          <input type="file" id="inp-entrega" accept="image/*" style="display:none" onchange="prevEntrega(this)">
+        </div>
+        <div id="prev-entrega"></div>
+      </div>
+      <button class="btn-submit" onclick="guardarEntrega()">Guardar entrega →</button>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">🏢 Fotos de la agencia</div>
+      <div class="drop" onclick="document.getElementById('inp-agencia').click()">
+        <strong>+ Subir foto del local</strong><p>Showroom, exterior, equipo...</p>
+        <input type="file" id="inp-agencia" accept="image/*" multiple style="display:none" onchange="subirAgencia(this)">
+      </div>
+      <div class="prev-wrap" id="prev-agencia"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">📱 Redes sociales</div>
+      <div class="field"><label>Facebook (URL completa)</label><input id="cfg-fb" placeholder="https://facebook.com/tuagencia" oninput="guardarRedes()"></div>
+      <div class="field"><label>Instagram (URL completa)</label><input id="cfg-ig" placeholder="https://instagram.com/tuagencia" oninput="guardarRedes()"></div>
+      <div class="field"><label>TikTok (URL completa)</label><input id="cfg-tt" placeholder="https://tiktok.com/@tuagencia" oninput="guardarRedes()"></div>
+      <div id="redes-preview" style="display:flex;gap:10px;margin-top:4px;"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-lbl">🖼️ Logo de la agencia</div>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div id="logo-preview-wrap" style="width:72px;height:72px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.3rem;overflow:hidden;border:1px solid var(--border);">
+          <span id="logo-preview-iniciales">FA</span>
+        </div>
+        <div>
+          <div style="font-size:.82rem;font-weight:700;margin-bottom:6px;">Logo actual</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:12px;">PNG o JPG recomendado. Fondo transparente ideal.</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-submit" style="width:auto;padding:9px 18px;" onclick="document.getElementById('inp-logo').click()">Subir logo →</button>
+            <button class="bx bx-r" onclick="quitarLogo()" id="btn-quitar-logo" style="display:none">Quitar logo</button>
+          </div>
+          <input type="file" id="inp-logo" accept="image/*" style="display:none" onchange="subirLogo(this)">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SUPERADMIN ══ -->
+<div id="page-superadmin" class="page">
+  <div class="admin-wrap">
+    <div class="admin-head">
+      <div>
+        <div class="admin-title" style="color:var(--accent)">⚡ Panel Maestro — Franco</div>
+        <div style="color:var(--muted);font-size:.72rem;margin-top:2px;">Gestión de agencias y accesos</div>
+      </div>
+      <div style="display:flex;gap:9px;align-items:center;">
+        <div class="user-pill"><div class="role-dot" style="background:#ff9800"></div><span>Super Admin</span></div>
+        <button class="bx bx-r" onclick="logout()">Salir</button>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-4" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-box"><div class="stat-n" id="sa-total" style="color:var(--accent)">0</div><div class="stat-l">Agencias activas</div></div>
+      <div class="stat-box"><div class="stat-n" id="sa-admins" style="color:#2e7d32">0</div><div class="stat-l">Usuarios admin</div></div>
+      <div class="stat-box"><div class="stat-n" id="sa-clientes" style="color:#1565c0">0</div><div class="stat-l">Clientes registrados</div></div>
+    </div>
+
+    <!-- CREAR USUARIO -->
+    <div class="panel">
+      <div class="panel-lbl">➕ Crear nuevo usuario</div>
+      <div class="field-2">
+        <div class="field"><label>Nombre</label><input id="sa-nombre" placeholder="Ej: Agencia Rodríguez"></div>
+        <div class="field"><label>Email</label><input id="sa-email" type="email" placeholder="admin@agencia.com"></div>
+      </div>
+      <div class="field-2">
+        <div class="field"><label>Contraseña</label><input id="sa-pass" type="text" placeholder="Crear contraseña"></div>
+        <div class="field"><label>Rol</label>
+          <select id="sa-rol">
+            <option value="admin">Admin (dueño de agencia)</option>
+            <option value="cliente">Cliente</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-submit" onclick="crearUsuario()">Crear usuario →</button>
+    </div>
+
+    <!-- LISTA USUARIOS -->
+    <div class="panel">
+      <div class="panel-lbl">👥 Usuarios registrados</div>
+      <div id="sa-user-list"></div>
+    </div>
+
+    <!-- CREDENCIALES -->
+    <div class="panel">
+      <div class="panel-lbl">🔑 Credenciales de acceso</div>
+      <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">Solo vos podés ver esta información. Usala si una agencia olvidó su contraseña.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);">
+            <td style="padding:8px 0;font-weight:800;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;">Agencia</td>
+            <td style="padding:8px 0;font-weight:800;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;">Email</td>
+            <td style="padding:8px 0;font-weight:800;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;">Contraseña</td>
+            <td style="padding:8px 0;font-weight:800;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;">Rol</td>
+          </tr>
+        </thead>
+        <tbody id="sa-creds"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CLIENTE ══ -->
+
+<!-- ══ CLIENTE ══ -->
+<div id="page-cliente" class="page">
+  <div class="section">
+    <div class="container" style="max-width:520px;text-align:center;padding-top:32px;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.4rem;">👤</div>
+      <h2 style="margin-bottom:7px;">Bienvenido</h2>
+      <p style="color:var(--muted);font-size:.86rem;margin-bottom:22px;">Explorá el catálogo y consultá directamente por WhatsApp el auto que te interesa.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-red" onclick="showPage('catalogo')">Ver catálogo →</button>
+        <button class="bx bx-r" style="padding:11px 18px;border-radius:6px;font-size:.82rem;" onclick="logout()">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong id="footer-name">Franco Autos</strong> — Río Cuarto, Córdoba, Argentina<br>
+  <div id="footer-redes" style="display:flex;justify-content:center;gap:12px;margin:14px 0;"></div>
+  <span style="margin-top:5px;display:block;">© 2025 Todos los derechos reservados</span>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════ CONFIG ═══════════════
+const CONFIG={
+  nombre:"Franco Autos",
+  iniciales:"FA",
+  color:"#e63946",
+  colorDark:"#c1121f",
+  whatsapp:"5493584000000",
+  ciudad:"Río Cuarto, Córdoba",
+  facebook:"",
+  instagram:"",
+  tiktok:"",
+};
+
+// ═══════════════ DATA ═══════════════
+let autos=[
+  {id:1,marca:"Volkswagen",modelo:"Suran 1.6",anio:2016,precio:17800000,km:99000,cond:"Usado",comb:"Nafta",trans:"Manual",desc:"Muy buen estado general. Aire frío/calor, vidrios eléctricos, dirección asistida. Service al día.",video:"",estado:"Disponible",dest:true,fotos:[]},
+  {id:2,marca:"Fiat",modelo:"Siena 1.4 EL",anio:2014,precio:14000000,km:199800,cond:"Usado",comb:"Nafta y GNC",trans:"Manual",desc:"Equipado con GNC. Económico, ideal para uso diario. Papeles al día, lista para transferir.",video:"",estado:"Disponible",dest:true,fotos:[]},
+  {id:3,marca:"Toyota",modelo:"Corolla 2.0",anio:2022,precio:21500000,km:38000,cond:"Usado",comb:"Nafta",trans:"Automático",desc:"Excelente estado. Un solo dueño. Pantalla táctil, cámara trasera, asientos de cuero.",video:"",estado:"Disponible",dest:true,fotos:[]},
+  {id:4,marca:"Ford",modelo:"Ranger XLS",anio:2021,precio:28900000,km:62000,cond:"Usado",comb:"Diesel",trans:"Manual",desc:"Cabina doble, 4x2. Lista para trabajar. Color blanco, sin golpes.",video:"",estado:"Disponible",dest:false,fotos:[]},
+  {id:5,marca:"Chevrolet",modelo:"Onix LT",anio:2025,precio:16300000,km:0,cond:"0km",comb:"Nafta",trans:"Manual",desc:"0km disponible, garantía de fábrica. Color gris, interior en tela oscura.",video:"",estado:"Disponible",dest:true,fotos:[]},
+  {id:6,marca:"Renault",modelo:"Kangoo 1.6",anio:2020,precio:10500000,km:78000,cond:"Usado",comb:"Nafta",trans:"Manual",desc:"Utilitario en buen estado. Ideal negocio o delivery.",video:"",estado:"Vendido",dest:false,fotos:[]},
+  {id:7,marca:"Honda",modelo:"HR-V EX",anio:2023,precio:19900000,km:22000,cond:"Usado",comb:"Nafta",trans:"Automático",desc:"SUV compacta en perfecto estado, cuero, pantalla táctil y cámara trasera.",video:"",estado:"Disponible",dest:false,fotos:[]},
+];
+let entregas=[
+  {id:1,foto:null,nombre:"Martín G.",fecha:"Marzo 2025",review:"Servicio excelente, me asesoraron perfecto y salí con el auto el mismo día."},
+  {id:2,foto:null,nombre:"Familia López",fecha:"Enero 2025",review:"Compramos la Kangoo para el negocio. Muy atentos y con todos los papeles en orden."},
+  {id:3,foto:null,nombre:"Lucía R.",fecha:"Diciembre 2024",review:"Mi primer auto. Me acompañaron en todo el proceso, muy recomendables."},
+  {id:4,foto:null,nombre:"Rodrigo M.",fecha:"Noviembre 2024",review:"La Ranger llegó justo cuando la necesitaba. Trámites rápidos y precio justo."},
+];
+let fotosAgencia=[],fotosAuto=[],fotoEntrega=null,currentUser=null,prevPage='home';
+// filtros estado
+let fp={cond:'Todos',marca:'Todos',trans:'Todos',comb:'',anioDesde:'',anioHasta:'',precioDesde:'',precioHasta:''};
+
+// ═══════════════ INIT ═══════════════
+function applyConfig(){
+  document.title=CONFIG.nombre;
+  document.getElementById('nav-icon').textContent=CONFIG.iniciales;
+  document.getElementById('nav-name').textContent=CONFIG.nombre.toUpperCase();
+  document.getElementById('ag-nombre').textContent=CONFIG.nombre+' — '+CONFIG.ciudad;
+  document.getElementById('footer-name').textContent=CONFIG.nombre;
+  document.getElementById('tb-ciudad').textContent=CONFIG.ciudad;
+  document.documentElement.style.setProperty('--accent',CONFIG.color);
+  document.documentElement.style.setProperty('--accent-dark',CONFIG.colorDark);
+}
+
+// ═══════════════ NAV ═══════════════
+function showPage(p){
+  if(p==='admin'&&(!currentUser||currentUser.rol!=='admin')){showPage('login');return;}
+  if(p==='cliente'&&(!currentUser||currentUser.rol!=='cliente')){showPage('login');return;}
+  prevPage=document.querySelector('.page.active')?.id?.replace('page-','')||'home';
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nl').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const map={home:0,catalogo:1,financiacion:2,vende:3,entregas:4,agencia:5};
+  if(map[p]!==undefined) document.querySelectorAll('.nl')[map[p]]?.classList.add('active');
+  ({home:renderHome,catalogo:renderCatalogo,entregas:renderEntregas,agencia:renderAgencia,admin:renderAdmin,superadmin:renderSuperadmin}[p]||function(){})();
+  window.scrollTo(0,0);
+}
+function goBack(){showPage(prevPage==='detalle'?'catalogo':prevPage);}
+function openMobile(){document.getElementById('mobile-menu').classList.add('open');}
+function closeMobile(){document.getElementById('mobile-menu').classList.remove('open');}
+function goMobile(p){closeMobile();showPage(p);}
+
+// ═══════════════ CARD ═══════════════
+function fmtPrecio(n){return'$'+n.toLocaleString('es-AR');}
+function carCard(a,minW=''){
+  const img=a.fotos&&a.fotos.length?`<img src="${a.fotos[0]}" alt="${a.marca} ${a.modelo}">`:`<div class="cc-no-img">Sin fotografía</div>`;
+  return`<div class="car-card" style="${minW?'min-width:'+minW:''}" onclick="showDetalle(${a.id})">
+    <div class="cc-img">${img}
+      <span class="cc-badge ${a.estado==='Vendido'?'b-sold':'b-avail'}">${a.estado}</span>
+      ${a.dest?'<span class="b-dest">Destacado</span>':''}
+      ${a.cond==='0km'?'<span class="b-0km">0 km</span>':''}
+    </div>
+    <div class="cc-body">
+      <div class="cc-marca">${a.marca}</div>
+      <div class="cc-name">${a.modelo} ${a.anio}</div>
+      <div class="cc-chips">
+        <span class="chip">${a.km===0?'0 km':a.km.toLocaleString()+' km'}</span>
+        <span class="chip">${a.comb}</span>
+        <span class="chip">${a.trans}</span>
+      </div>
+      <div class="cc-price">${fmtPrecio(a.precio)} <small>ARS</small></div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════ HOME ═══════════════
+function renderHome(){
+  const marcas=[...new Set(autos.map(a=>a.marca))].sort();
+  const sm=document.getElementById('sb-marca');
+  sm.innerHTML='<option value="">Todas las marcas</option>'+marcas.map(m=>`<option>${m}</option>`).join('');
+  sbUpdateModelos();
+  const anios=[...new Set(autos.map(a=>a.anio))].sort((a,b)=>b-a);
+  document.getElementById('sb-anio').innerHTML='<option value="">Cualquier año</option>'+anios.map(y=>`<option>${y}</option>`).join('');
+  document.getElementById('home-dest').innerHTML=autos.filter(a=>a.dest&&a.estado==='Disponible').map(a=>carCard(a,'240px')).join('');
+  document.getElementById('home-ent').innerHTML=entregas.slice(0,2).map(entCard).join('');
+}
+function sbUpdateModelos(){
+  const m=document.getElementById('sb-marca').value;
+  const mods=[...new Set(autos.filter(a=>!m||a.marca===m).map(a=>a.modelo))].sort();
+  document.getElementById('sb-modelo').innerHTML='<option value="">Todos los modelos</option>'+mods.map(x=>`<option>${x}</option>`).join('');
+}
+function buscar(){
+  const m=document.getElementById('sb-marca').value;
+  const mo=document.getElementById('sb-modelo').value;
+  const an=document.getElementById('sb-anio').value;
+  const cn=document.getElementById('sb-cond').value;
+  fp={cond:'Todos',marca:'Todos',trans:'Todos',comb:'',anioDesde:an,anioHasta:'',precioDesde:'',precioHasta:''};
+  if(m) fp.marca=m;
+  if(cn) fp.cond=cn;
+  showPage('catalogo');
+  setTimeout(()=>{
+    let r=autos.filter(a=>(!m||a.marca===m)&&(!mo||a.modelo===mo)&&(!an||a.anio>=parseInt(an))&&(!cn||a.cond===cn));
+    document.getElementById('cat-count').textContent=r.length+' vehículos';
+    document.getElementById('catalogo-grid').innerHTML=r.map(a=>carCard(a)).join('');
+    document.getElementById('no-results').style.display=r.length?'none':'block';
+  },60);
+}
+
+// ═══════════════ CATALOGO ═══════════════
+function renderCatalogo(){
+  // panel marcas
+  const marcas=['Todos',...new Set(autos.map(a=>a.marca))].sort();
+  document.getElementById('fp-marcas').innerHTML=marcas.map(m=>`<button class="fp-pill ${m===fp.marca?'active':''}" onclick="fpSet('marca','${m}',this)">${m}</button>`).join('');
+  applyFilters();
+}
+function fpSet(key,val,el){
+  fp[key]=val;
+  el.closest('.fp-pills').querySelectorAll('.fp-pill').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+function applyFilters(){
+  fp.comb=document.getElementById('fp-comb').value;
+  fp.anioDesde=document.getElementById('fp-anio-desde').value;
+  fp.anioHasta=document.getElementById('fp-anio-hasta').value;
+  fp.precioDesde=document.getElementById('fp-precio-desde').value;
+  fp.precioHasta=document.getElementById('fp-precio-hasta').value;
+  const sort=document.getElementById('sort-sel').value;
+  let r=autos.filter(a=>{
+    if(fp.cond!=='Todos'&&a.cond!==fp.cond) return false;
+    if(fp.marca!=='Todos'&&a.marca!==fp.marca) return false;
+    if(fp.trans!=='Todos'&&a.trans!==fp.trans) return false;
+    if(fp.comb&&a.comb!==fp.comb) return false;
+    if(fp.anioDesde&&a.anio<parseInt(fp.anioDesde)) return false;
+    if(fp.anioHasta&&a.anio>parseInt(fp.anioHasta)) return false;
+    if(fp.precioDesde&&a.precio<parseInt(fp.precioDesde)) return false;
+    if(fp.precioHasta&&a.precio>parseInt(fp.precioHasta)) return false;
+    return true;
+  });
+  if(sort==='dest') r.sort((a,b)=>b.dest-a.dest);
+  else if(sort==='nuevo') r.sort((a,b)=>b.anio-a.anio);
+  else if(sort==='km') r.sort((a,b)=>a.km-b.km);
+  else if(sort==='precio-asc') r.sort((a,b)=>a.precio-b.precio);
+  else if(sort==='precio-desc') r.sort((a,b)=>b.precio-a.precio);
+  document.getElementById('cat-count').textContent=r.length+' vehículos';
+  document.getElementById('catalogo-grid').innerHTML=r.map(a=>carCard(a)).join('');
+  document.getElementById('no-results').style.display=r.length?'none':'block';
+}
+function limpiarFiltros(){
+  fp={cond:'Todos',marca:'Todos',trans:'Todos',comb:'',anioDesde:'',anioHasta:'',precioDesde:'',precioHasta:''};
+  document.getElementById('fp-comb').value='';
+  ['fp-anio-desde','fp-anio-hasta','fp-precio-desde','fp-precio-hasta'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('#fp-cond .fp-pill, #fp-marcas .fp-pill, #fp-trans .fp-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#fp-cond .fp-pill')[0]?.classList.add('active');
+  document.querySelectorAll('#fp-marcas .fp-pill')[0]?.classList.add('active');
+  document.querySelectorAll('#fp-trans .fp-pill')[0]?.classList.add('active');
+  applyFilters();
+}
+
+// ═══════════════ DETALLE ═══════════════
+function showDetalle(id){
+  prevPage=document.querySelector('.page.active')?.id?.replace('page-','')||'catalogo';
+  const a=autos.find(x=>x.id===id);
+  const hasF=a.fotos&&a.fotos.length;
+  const thumbs=hasF&&a.fotos.length>1?`<div class="gal-thumbs">${a.fotos.map((f,i)=>`<div class="g-thumb ${i===0?'active':''}" onclick="swImg(this,'${f}')"><img src="${f}"></div>`).join('')}</div>`:'';
+  document.getElementById('detalle-content').innerHTML=`
+    <div class="detail-grid">
+      <div>
+        <div class="gal-main" id="d-main">${hasF?`<img id="d-img" src="${a.fotos[0]}" style="width:100%;height:100%;object-fit:cover;">`:'Sin fotografía disponible'}</div>
+        ${thumbs}
+        <div class="d-desc-sec"><h4>Descripción</h4><p>${a.desc}</p>
+          ${a.video?`<p style="margin-top:12px"><a href="${a.video}" target="_blank" style="color:var(--accent);font-weight:700">▶ Ver video del vehículo →</a></p>`:''}
+        </div>
+      </div>
+      <div>
+        <div class="detail-sticky">
+          <div class="d-marca">${a.marca}</div>
+          <div class="d-name">${a.modelo} ${a.anio}</div>
+          <div class="d-price">${fmtPrecio(a.precio)} <span style="font-size:.7rem;color:var(--muted);font-weight:500">ARS</span></div>
+          <div class="d-divider"></div>
+          <table class="spec-table">
+            ${[['Kilómetros',a.km===0?'0 km':a.km.toLocaleString()+' km'],['Combustible',a.comb],['Transmisión',a.trans],['Año',a.anio],['Condición',a.cond],['Estado',a.estado]].map(([l,v])=>`<tr><td>${l}</td><td>${v}</td></tr>`).join('')}
+          </table>
+          ${a.estado==='Disponible'
+            ?`<button class="wa-big" onclick="contactoWA('${a.marca} ${a.modelo} ${a.anio}')"><span>💬</span> Consultar por WhatsApp</button>`
+            :`<div class="sold-notice">Este vehículo ya fue vendido</div>`}
+        </div>
+      </div>
+    </div>`;
+  showPage('detalle');
+}
+function swImg(el,src){
+  const img=document.getElementById('d-img');if(img)img.src=src;
+  document.querySelectorAll('.g-thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ═══════════════ ENTREGAS ═══════════════
+function entCard(e){return`<div class="ent-card"><div class="ent-img">${e.foto?`<img src="${e.foto}">`:'Sin foto'}</div><div class="ent-body"><div class="ent-name">${e.nombre}</div><div class="ent-date">${e.fecha}</div><div class="ent-review">"${e.review}"</div></div></div>`;}
+function renderEntregas(){document.getElementById('entregas-full').innerHTML=entregas.map(entCard).join('');}
+
+// ═══════════════ AGENCIA ═══════════════
+function renderAgencia(){
+  document.getElementById('ag-n').textContent=autos.filter(a=>a.estado==='Disponible').length;
+  if(fotosAgencia.length){
+    document.getElementById('ag-cover').innerHTML=`<img src="${fotosAgencia[0]}">`;
+    document.getElementById('ag-fotos-grid').innerHTML=fotosAgencia.map(f=>`<div class="ag-foto"><img src="${f}"></div>`).join('');
+  }
+  renderRedes();
+}
+
+// ═══════════════ VENDE ═══════════════
+function enviarVenta(){
+  const marca=document.getElementById('v-marca').value.trim();
+  const modelo=document.getElementById('v-modelo').value.trim();
+  const anio=document.getElementById('v-anio').value;
+  const km=document.getElementById('v-km').value;
+  const contacto=document.getElementById('v-contacto').value.trim();
+  const obs=document.getElementById('v-obs').value.trim();
+  if(!marca||!modelo||!contacto){toast('Completá al menos marca, modelo y contacto');return;}
+  const msg=`Hola! Quiero vender mi auto:\n*${marca} ${modelo}${anio?' '+anio:''}*\nKm: ${km||'—'}\nContacto: ${contacto}${obs?'\nNotas: '+obs:''}`;
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ═══════════════ LOGIN ═══════════════
+const USERS=[
+  {email:'franco@superadmin.com',pass:'superfranco2025',rol:'superadmin',nombre:'Franco'},
+  {email:'admin@francoautos.com',pass:'franco123',rol:'admin',nombre:'Admin'},
+  {email:'cliente@demo.com',pass:'cliente123',rol:'cliente',nombre:'Cliente'},
+];
+function doLogin(){
+  const e=document.getElementById('l-email').value.trim();
+  const p=document.getElementById('l-pass').value;
+  const u=USERS.find(x=>x.email===e&&x.pass===p);
+  if(u){
+    currentUser=u;
+    document.getElementById('l-err').style.display='none';
+    document.getElementById('nav-access').outerHTML=`<div style="display:flex;gap:8px;align-items:center;">
+      <div class="user-pill"><div class="role-dot ${u.rol==='admin'?'':'green'}"></div><span>${u.nombre} · <strong>${u.rol}</strong></span></div>
+      <button class="btn-access" onclick="logout()">Salir</button>
+    </div>`;
+    showPage(u.rol==='superadmin'?'superadmin':u.rol==='admin'?'admin':'cliente');
+  }else{document.getElementById('l-err').style.display='block';}
+}
+function logout(){currentUser=null;location.reload();}
+
+// ═══════════════ ADMIN ═══════════════
+// ═══════════════ SUPERADMIN ═══════════════
+function renderSuperadmin(){
+  const admins=USERS.filter(u=>u.rol==='admin');
+  const clientes=USERS.filter(u=>u.rol==='cliente');
+  document.getElementById('sa-total').textContent=admins.length;
+  document.getElementById('sa-admins').textContent=admins.length;
+  document.getElementById('sa-clientes').textContent=clientes.length;
+  // tabla credenciales
+  document.getElementById('sa-creds').innerHTML=USERS.filter(u=>u.rol!=='superadmin').map(u=>`
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:10px 0;font-weight:700;">${u.nombre}</td>
+      <td style="padding:10px 0;color:var(--muted);">${u.email}</td>
+      <td style="padding:10px 0;">
+        <span id="pass-${u.email}" style="filter:blur(5px);cursor:pointer;font-weight:700;user-select:none;" onclick="togglePass('${u.email}')" title="Clic para ver">${u.pass}</span>
+      </td>
+      <td style="padding:10px 0;"><span style="background:${u.rol==='admin'?'#ffeaea':'#e3f2fd'};color:${u.rol==='admin'?'var(--accent)':'#1565c0'};font-size:.68rem;font-weight:800;padding:3px 9px;border-radius:4px;">${u.rol}</span></td>
+    </tr>`).join('');
+  // lista usuarios
+  document.getElementById('sa-user-list').innerHTML=USERS.filter(u=>u.rol!=='superadmin').map((u,i)=>`
+    <div class="stock-row">
+      <div style="width:36px;height:36px;border-radius:50%;background:${u.rol==='admin'?'var(--accent)':'#1565c0'};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem;flex-shrink:0;">${u.nombre.charAt(0)}</div>
+      <div class="s-info">
+        <strong>${u.nombre}</strong>
+        <small>${u.email} · <span style="color:${u.rol==='admin'?'var(--accent)':'#1565c0'};font-weight:700;">${u.rol}</span></small>
+      </div>
+      <div class="s-acts">
+        <button class="bx bx-r" onclick="eliminarUsuario('${u.email}')">Eliminar</button>
+      </div>
+    </div>`).join('');
+}
+function togglePass(email){
+  const el=document.getElementById('pass-'+email);
+  el.style.filter=el.style.filter?'':'blur(5px)';
+}
+function crearUsuario(){
+  const nombre=document.getElementById('sa-nombre').value.trim();
+  const email=document.getElementById('sa-email').value.trim();
+  const pass=document.getElementById('sa-pass').value.trim();
+  const rol=document.getElementById('sa-rol').value;
+  if(!nombre||!email||!pass){toast('Completá todos los campos');return;}
+  if(USERS.find(u=>u.email===email)){toast('Ese email ya existe');return;}
+  USERS.push({email,pass,rol,nombre});
+  ['sa-nombre','sa-email','sa-pass'].forEach(id=>document.getElementById(id).value='');
+  renderSuperadmin();
+  toast(`Usuario "${nombre}" creado ✓`);
+}
+function eliminarUsuario(email){
+  const idx=USERS.findIndex(u=>u.email===email);
+  if(idx>-1){USERS.splice(idx,1);renderSuperadmin();toast('Usuario eliminado');}
+}
+
+function renderAdmin(){
+  // sincronizar campos de redes con CONFIG actual
+  document.getElementById('cfg-fb').value=CONFIG.facebook||'';
+  document.getElementById('cfg-ig').value=CONFIG.instagram||'';
+  document.getElementById('cfg-tt').value=CONFIG.tiktok||'';
+  renderRedes();
+  document.getElementById('st-tot').textContent=autos.length;
+  document.getElementById('st-dis').textContent=autos.filter(a=>a.estado==='Disponible').length;
+  document.getElementById('st-vnd').textContent=autos.filter(a=>a.estado==='Vendido').length;
+  document.getElementById('st-dst').textContent=autos.filter(a=>a.dest).length;
+  document.getElementById('admin-stock').innerHTML=autos.map(a=>`
+    <div class="stock-row">
+      <div class="s-thumb">${a.fotos&&a.fotos.length?`<img src="${a.fotos[0]}">`:'Sin foto'}</div>
+      <div class="s-info">
+        <strong>${a.marca} ${a.modelo} ${a.anio}</strong>
+        <small>${fmtPrecio(a.precio)} · <span style="color:${a.estado==='Disponible'?'#2e7d32':'#c62828'}">${a.estado}</span>${a.dest?' · ⭐':''}</small>
+      </div>
+      <div class="s-acts">
+        <button class="bx ${a.estado==='Disponible'?'bx-r':'bx-g'}" onclick="toggleEstado(${a.id})">${a.estado==='Disponible'?'Vendido':'Disponible'}</button>
+        <button class="bx bx-o" onclick="toggleDest(${a.id})">${a.dest?'Quitar':'Destacar'}</button>
+      </div>
+    </div>`).join('');
+}
+function toggleEstado(id){const a=autos.find(x=>x.id===id);a.estado=a.estado==='Disponible'?'Vendido':'Disponible';renderAdmin();toast(`${a.marca} ${a.modelo}: ${a.estado}`);}
+function toggleDest(id){const a=autos.find(x=>x.id===id);a.dest=!a.dest;renderAdmin();toast(a.dest?'Marcado como destacado':'Quitado de destacados');}
+
+function guardarAuto(){
+  const marca=document.getElementById('f-marca').value.trim();
+  const modelo=document.getElementById('f-modelo').value.trim();
+  const anio=document.getElementById('f-anio').value;
+  const precio=document.getElementById('f-precio').value;
+  if(!marca||!modelo||!anio||!precio){toast('Completá los campos obligatorios');return;}
+  autos.unshift({id:Date.now(),marca,modelo,anio:parseInt(anio),precio:parseInt(precio),
+    km:parseInt(document.getElementById('f-km').value)||0,
+    cond:document.getElementById('f-cond').value,
+    comb:document.getElementById('f-comb').value,
+    trans:document.getElementById('f-trans').value,
+    desc:document.getElementById('f-desc').value||'—',
+    video:document.getElementById('f-video').value,
+    estado:'Disponible',dest:document.getElementById('f-dest').value==='1',
+    fotos:[...fotosAuto]});
+  ['f-marca','f-modelo','f-anio','f-precio','f-km','f-desc','f-video'].forEach(i=>document.getElementById(i).value='');
+  fotosAuto=[];document.getElementById('prev-fotos').innerHTML='';document.getElementById('inp-fotos').value='';
+  renderAdmin();toast('Auto guardado ✓');
+}
+function guardarEntrega(){
+  const nombre=document.getElementById('e-nombre').value.trim()||'Cliente';
+  const fecha=document.getElementById('e-fecha').value.trim()||'—';
+  const review=document.getElementById('e-review').value.trim()||'—';
+  entregas.unshift({id:Date.now(),foto:fotoEntrega,nombre,fecha,review});
+  ['e-nombre','e-fecha','e-review'].forEach(i=>document.getElementById(i).value='');
+  fotoEntrega=null;document.getElementById('prev-entrega').innerHTML='';document.getElementById('inp-entrega').value='';
+  toast('Entrega registrada ✓');
+}
+
+// ═══════════════ FOTOS ═══════════════
+function prevFotos(input){
+  fotosAuto=[];document.getElementById('prev-fotos').innerHTML='';
+  Array.from(input.files).slice(0,6).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      fotosAuto.push(e.target.result);
+      const i=fotosAuto.length-1;
+      const d=document.createElement('div');d.className='prev-item';
+      d.innerHTML=`<img src="${e.target.result}"><button onclick="rmFotoAuto(${i})">✕</button>`;
+      document.getElementById('prev-fotos').appendChild(d);
+    };r.readAsDataURL(f);
+  });
+}
+function rmFotoAuto(i){fotosAuto.splice(i,1);document.getElementById('inp-fotos').value='';document.getElementById('prev-fotos').innerHTML='';fotosAuto.forEach((f,idx)=>{const d=document.createElement('div');d.className='prev-item';d.innerHTML=`<img src="${f}"><button onclick="rmFotoAuto(${idx})">✕</button>`;document.getElementById('prev-fotos').appendChild(d);});}
+function prevEntrega(input){
+  const f=input.files[0];if(!f)return;
+  new FileReader().onload=e=>{fotoEntrega=e.target.result;document.getElementById('prev-entrega').innerHTML=`<div class="prev-wrap"><div class="prev-item"><img src="${e.target.result}"></div></div>`;};
+  const r=new FileReader();r.onload=e=>{fotoEntrega=e.target.result;document.getElementById('prev-entrega').innerHTML=`<div class="prev-wrap"><div class="prev-item"><img src="${e.target.result}"></div></div>`;};r.readAsDataURL(f);
+}
+function guardarRedes(){
+  CONFIG.facebook=document.getElementById('cfg-fb').value.trim();
+  CONFIG.instagram=document.getElementById('cfg-ig').value.trim();
+  CONFIG.tiktok=document.getElementById('cfg-tt').value.trim();
+  renderRedes();
+}
+function renderRedes(){
+  const redes=[
+    {url:CONFIG.facebook,label:'Facebook',color:'#1877f2',svg:'<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>'},
+    {url:CONFIG.instagram,label:'Instagram',color:'#e1306c',svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>'},
+    {url:CONFIG.tiktok,label:'TikTok',color:'#010101',svg:'<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>'},
+  ];
+  const btns=redes.filter(r=>r.url).map(r=>`<a href="${r.url}" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:${r.color};color:#fff;padding:9px 16px;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;">${r.svg} ${r.label}</a>`).join('');
+  // footer
+  const fr=document.getElementById('footer-redes');
+  if(fr) fr.innerHTML=btns;
+  // agencia
+  const ag=document.getElementById('ag-redes');
+  if(ag) ag.innerHTML=btns;
+  // admin preview
+  const prev=document.getElementById('redes-preview');
+  if(prev) prev.innerHTML=btns||'<span style="color:var(--muted);font-size:.75rem">Los botones aparecerán acá cuando cargues los links</span>';
+}
+
+function subirLogo(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const src=e.target.result;
+    // nav
+    const icon=document.getElementById('nav-icon');
+    icon.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">`;
+    // preview en panel
+    document.getElementById('logo-preview-wrap').innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;">`;
+    document.getElementById('btn-quitar-logo').style.display='block';
+    CONFIG.logoUrl=src;
+    toast('Logo actualizado ✓');
+  };
+  r.readAsDataURL(f);
+}
+function quitarLogo(){
+  CONFIG.logoUrl=null;
+  document.getElementById('nav-icon').innerHTML=CONFIG.iniciales;
+  document.getElementById('logo-preview-wrap').innerHTML=`<span id="logo-preview-iniciales">${CONFIG.iniciales}</span>`;
+  document.getElementById('btn-quitar-logo').style.display='none';
+  document.getElementById('inp-logo').value='';
+  toast('Logo quitado');
+}
+function subirAgencia(input){
+  Array.from(input.files).forEach(f=>{
+    const r=new FileReader();r.onload=e=>{fotosAgencia.push(e.target.result);const d=document.createElement('div');d.className='prev-item';d.innerHTML=`<img src="${e.target.result}">`;document.getElementById('prev-agencia').appendChild(d);toast('Foto guardada ✓');};r.readAsDataURL(f);
+  });
+}
+
+// ═══════════════ WA & TOAST ═══════════════
+function contactoWA(m){
+  const msg={
+    general:`Hola, consulto desde la web de ${CONFIG.nombre}.`,
+    financiacion:`Hola, quiero consultar sobre financiación en ${CONFIG.nombre}.`,
+    venta:`Hola, quiero vender mi auto. ¿Hacen tasaciones?`,
+  }[m]||`Hola, quiero consultar por el ${m} que vi en la web de ${CONFIG.nombre}.`;
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.classList.add('show'),10);
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.style.display='none',300);},2600);
+}
+
+// demo redes para que se vean los botones
+CONFIG.facebook="https://facebook.com";
+CONFIG.instagram="https://instagram.com";
+CONFIG.tiktok="https://tiktok.com";
+
+applyConfig();
+renderHome();
+renderRedes();
+</script>
+</body>
+</html>
